@@ -7,6 +7,7 @@ import (
 	"github.com/gufranmirza/imdb-api/config"
 	"github.com/gufranmirza/imdb-api/database/migrations"
 	"github.com/gufranmirza/imdb-api/models"
+	"github.com/gufranmirza/imdb-api/web/server"
 )
 
 func main() {
@@ -31,4 +32,8 @@ func main() {
 		migrations.Migrate(action, message)
 		return
 	}
+
+	// Start http server
+	svr := server.NewServer()
+	svr.Start()
 }

@@ -11,10 +11,10 @@ const (
 type AppConfig struct {
 	Hostname        string `json:"hostname"`
 	Port            int    `json:"port"`
-	ServiceName     string `json:"serviceName"`
-	ServiceProvider string `json:"serviceProvider"`
-	ServiceVersion  string `json:"serviceVersion"`
-	URLPrefix       string `json:"urlPrefix"`
+	ServiceName     string `json:"service_name"`
+	ServiceProvider string `json:"service_provider"`
+	ServiceVersion  string `json:"service_version"`
+	URLPrefix       string `json:"url_prefix"`
 	JWT             *JWT   `json:"jwt"`
 	Database        *DB    `json:"database"`
 }
