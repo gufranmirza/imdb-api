@@ -375,10 +375,10 @@ var doc = `{
         "authinterface.AuthenticateResInterface": {
             "type": "object",
             "properties": {
-                "accessToken": {
+                "access_token": {
                     "type": "string"
                 },
-                "refreshToken": {
+                "refresh_token": {
                     "type": "string"
                 }
             }
@@ -397,7 +397,7 @@ var doc = `{
                 "email": {
                     "type": "string"
                 },
-                "firstName": {
+                "first_name": {
                     "type": "string"
                 },
                 "roles": {
@@ -414,7 +414,7 @@ var doc = `{
                 "99popularity": {
                     "type": "number"
                 },
-                "createdTimestampUTC": {
+                "created_timestamp_utc": {
                     "type": "string"
                 },
                 "director": {
@@ -435,7 +435,7 @@ var doc = `{
                 "name": {
                     "type": "string"
                 },
-                "updatedTimestampUTC": {
+                "updated_timestamp_utc": {
                     "type": "string"
                 }
             }
@@ -460,34 +460,34 @@ var doc = `{
         "healthinterface.Health": {
             "type": "object",
             "properties": {
-                "inboundInterfaces": {
+                "inbound_interfaces": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/healthinterface.InboundInterface"
                     }
                 },
-                "outboundInterfaces": {
+                "outbound_interfaces": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/healthinterface.OutboundInterface"
                     }
                 },
-                "serviceName": {
+                "service_name": {
                     "type": "string"
                 },
-                "serviceProvider": {
+                "service_provider": {
                     "type": "string"
                 },
-                "serviceStartTimeUTC": {
+                "service_starttime_utc": {
                     "type": "string"
                 },
-                "serviceStatus": {
+                "service_status": {
                     "type": "string"
                 },
-                "serviceVersion": {
+                "service_version": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 },
                 "uptime": {
@@ -501,10 +501,10 @@ var doc = `{
                 "address": {
                     "type": "string"
                 },
-                "applicationName": {
+                "application_name": {
                     "type": "string"
                 },
-                "connectionStatus": {
+                "connection_status": {
                     "type": "string"
                 },
                 "hostname": {
@@ -513,7 +513,7 @@ var doc = `{
                 "os": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 }
             }
@@ -521,13 +521,13 @@ var doc = `{
         "healthinterface.OutboundInterface": {
             "type": "object",
             "properties": {
-                "applicationName": {
+                "application_name": {
                     "type": "string"
                 },
-                "connectionStatus": {
+                "connection_status": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 },
                 "urls": {

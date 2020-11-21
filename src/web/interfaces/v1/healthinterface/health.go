@@ -23,22 +23,22 @@ var (
 
 // Health represents health response
 type Health struct {
-	TimeStampUTC        time.Time           `json:"timeStampUTC,omitempty"`
-	ServiceName         string              `json:"serviceName,omitempty"`
-	ServiceProvider     string              `json:"serviceProvider,omitempty"`
-	ServiceVersion      string              `json:"serviceVersion,omitempty"`
-	ServiceStatus       ServiceStatus       `json:"serviceStatus,omitempty"`
-	ServiceStartTimeUTC time.Time           `json:"serviceStartTimeUTC,omitempty"`
+	TimeStampUTC        time.Time           `json:"timestamp_utc,omitempty"`
+	ServiceName         string              `json:"service_name,omitempty"`
+	ServiceProvider     string              `json:"service_provider,omitempty"`
+	ServiceVersion      string              `json:"service_version,omitempty"`
+	ServiceStatus       ServiceStatus       `json:"service_status,omitempty"`
+	ServiceStartTimeUTC time.Time           `json:"service_starttime_utc,omitempty"`
 	Uptime              float64             `json:"uptime,omitempty"`
-	InboundInterfaces   []InboundInterface  `json:"inboundInterfaces,omitempty"`
-	OutboundInterfaces  []OutboundInterface `json:"outboundInterfaces,omitempty"`
+	InboundInterfaces   []InboundInterface  `json:"inbound_interfaces,omitempty"`
+	OutboundInterfaces  []OutboundInterface `json:"outbound_interfaces,omitempty"`
 }
 
 // InboundInterface is inbound network inferfaces
 type InboundInterface struct {
-	ApplicationName  string           `json:"applicationName,omitempty"`
-	ConnectionStatus ConnectionStatus `json:"connectionStatus,omitempty"`
-	TimeStampUTC     time.Time        `json:"timeStampUTC,omitempty"`
+	ApplicationName  string           `json:"application_name,omitempty"`
+	ConnectionStatus ConnectionStatus `json:"connection_status,omitempty"`
+	TimeStampUTC     time.Time        `json:"timestamp_utc,omitempty"`
 	Hostname         string           `json:"hostname,omitempty"`
 	Address          string           `json:"address,omitempty"`
 	OS               string           `json:"os,omitempty"`
@@ -46,8 +46,8 @@ type InboundInterface struct {
 
 // OutboundInterface is outbound network interfaces
 type OutboundInterface struct {
-	ApplicationName  string           `json:"applicationName,omitempty"`
-	TimeStampUTC     time.Time        `json:"timeStampUTC,omitempty"`
+	ApplicationName  string           `json:"application_name,omitempty"`
+	TimeStampUTC     time.Time        `json:"timestamp_utc,omitempty"`
 	URLs             []string         `json:"urls,omitempty"`
-	ConnectionStatus ConnectionStatus `json:"connectionStatus,omitempty"`
+	ConnectionStatus ConnectionStatus `json:"connection_status,omitempty"`
 }

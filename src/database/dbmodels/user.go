@@ -10,12 +10,12 @@ import (
 // User model represents the user collection in database
 type User struct {
 	ID                  primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
-	CreatedTimestampUTC time.Time          `json:"createdTimestampUTC,omitempty" bson:"CreatedTimestampUTC,omitempty"`
-	UpdatedTimestampUTC time.Time          `json:"updatedTimestampUTC,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
-	LastLogin           time.Time          `json:"lastLogin,omitempty" bson:"LastLogin,omitempty"`
+	CreatedTimestampUTC time.Time          `json:"created_timestamp_utc,omitempty" bson:"CreatedTimestampUTC,omitempty"`
+	UpdatedTimestampUTC time.Time          `json:"updated_timestamp_utc,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
+	LastLogin           time.Time          `json:"last_login,omitempty" bson:"LastLogin,omitempty"`
 	Email               string             `json:"email,omitempty" bson:"Email,omitempty"`
-	FirstName           string             `json:"firstName,omitempty" bson:"FirstName,omitempty"`
-	LastName            string             `json:"lastName,omitempty" bson:"LastName,omitempty"`
+	FirstName           string             `json:"first_name,omitempty" bson:"FirstName,omitempty"`
+	LastName            string             `json:"last_name,omitempty" bson:"LastName,omitempty"`
 	Active              bool               `json:"active,omitempty" bson:"Active,omitempty"`
 	Roles               []authmodel.Role   `json:"roles,omitempty" bson:"Roles,omitempty"`
 }

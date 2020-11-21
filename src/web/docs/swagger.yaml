@@ -2,9 +2,9 @@ basePath: /imdb-api/v1
 definitions:
   authinterface.AuthenticateResInterface:
     properties:
-      accessToken:
+      access_token:
         type: string
-      refreshToken:
+      refresh_token:
         type: string
     type: object
   authinterface.LoginReqInterface:
@@ -16,7 +16,7 @@ definitions:
     properties:
       email:
         type: string
-      firstName:
+      first_name:
         type: string
       roles:
         items:
@@ -27,7 +27,7 @@ definitions:
     properties:
       99popularity:
         type: number
-      createdTimestampUTC:
+      created_timestamp_utc:
         type: string
       director:
         type: string
@@ -41,7 +41,7 @@ definitions:
         type: number
       name:
         type: string
-      updatedTimestampUTC:
+      updated_timestamp_utc:
         type: string
     type: object
   errorinterface.ErrorResponse:
@@ -58,25 +58,25 @@ definitions:
     type: object
   healthinterface.Health:
     properties:
-      inboundInterfaces:
+      inbound_interfaces:
         items:
           $ref: '#/definitions/healthinterface.InboundInterface'
         type: array
-      outboundInterfaces:
+      outbound_interfaces:
         items:
           $ref: '#/definitions/healthinterface.OutboundInterface'
         type: array
-      serviceName:
+      service_name:
         type: string
-      serviceProvider:
+      service_provider:
         type: string
-      serviceStartTimeUTC:
+      service_starttime_utc:
         type: string
-      serviceStatus:
+      service_status:
         type: string
-      serviceVersion:
+      service_version:
         type: string
-      timeStampUTC:
+      timestamp_utc:
         type: string
       uptime:
         type: number
@@ -85,24 +85,24 @@ definitions:
     properties:
       address:
         type: string
-      applicationName:
+      application_name:
         type: string
-      connectionStatus:
+      connection_status:
         type: string
       hostname:
         type: string
       os:
         type: string
-      timeStampUTC:
+      timestamp_utc:
         type: string
     type: object
   healthinterface.OutboundInterface:
     properties:
-      applicationName:
+      application_name:
         type: string
-      connectionStatus:
+      connection_status:
         type: string
-      timeStampUTC:
+      timestamp_utc:
         type: string
       urls:
         items:

@@ -360,10 +360,10 @@
         "authinterface.AuthenticateResInterface": {
             "type": "object",
             "properties": {
-                "accessToken": {
+                "access_token": {
                     "type": "string"
                 },
-                "refreshToken": {
+                "refresh_token": {
                     "type": "string"
                 }
             }
@@ -382,7 +382,7 @@
                 "email": {
                     "type": "string"
                 },
-                "firstName": {
+                "first_name": {
                     "type": "string"
                 },
                 "roles": {
@@ -399,7 +399,7 @@
                 "99popularity": {
                     "type": "number"
                 },
-                "createdTimestampUTC": {
+                "created_timestamp_utc": {
                     "type": "string"
                 },
                 "director": {
@@ -420,7 +420,7 @@
                 "name": {
                     "type": "string"
                 },
-                "updatedTimestampUTC": {
+                "updated_timestamp_utc": {
                     "type": "string"
                 }
             }
@@ -445,34 +445,34 @@
         "healthinterface.Health": {
             "type": "object",
             "properties": {
-                "inboundInterfaces": {
+                "inbound_interfaces": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/healthinterface.InboundInterface"
                     }
                 },
-                "outboundInterfaces": {
+                "outbound_interfaces": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/healthinterface.OutboundInterface"
                     }
                 },
-                "serviceName": {
+                "service_name": {
                     "type": "string"
                 },
-                "serviceProvider": {
+                "service_provider": {
                     "type": "string"
                 },
-                "serviceStartTimeUTC": {
+                "service_starttime_utc": {
                     "type": "string"
                 },
-                "serviceStatus": {
+                "service_status": {
                     "type": "string"
                 },
-                "serviceVersion": {
+                "service_version": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 },
                 "uptime": {
@@ -486,10 +486,10 @@
                 "address": {
                     "type": "string"
                 },
-                "applicationName": {
+                "application_name": {
                     "type": "string"
                 },
-                "connectionStatus": {
+                "connection_status": {
                     "type": "string"
                 },
                 "hostname": {
@@ -498,7 +498,7 @@
                 "os": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 }
             }
@@ -506,13 +506,13 @@
         "healthinterface.OutboundInterface": {
             "type": "object",
             "properties": {
-                "applicationName": {
+                "application_name": {
                     "type": "string"
                 },
-                "connectionStatus": {
+                "connection_status": {
                     "type": "string"
                 },
-                "timeStampUTC": {
+                "timestamp_utc": {
                     "type": "string"
                 },
                 "urls": {

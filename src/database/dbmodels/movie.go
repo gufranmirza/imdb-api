@@ -9,8 +9,8 @@ import (
 // Movie model represents the movie collection in database
 type Movie struct {
 	ID                  primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
-	CreatedTimestampUTC time.Time          `json:"createdTimestampUTC,omitempty" bson:"CreatedTimestampUTC,omitempty"`
-	UpdatedTimestampUTC time.Time          `json:"updatedTimestampUTC,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
+	CreatedTimestampUTC time.Time          `json:"created_timestamp_utc,omitempty" bson:"CreatedTimestampUTC,omitempty"`
+	UpdatedTimestampUTC time.Time          `json:"updated_timestamp_utc,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
 	Popularity99        float64            `json:"99popularity,omitempty" bson:"Popularity99,omitempty"`
 	Director            string             `json:"director,omitempty" bson:"Director,omitempty"`
 	Genre               []string           `json:"genre,omitempty" bson:"Genre,omitempty"`

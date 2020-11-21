@@ -10,17 +10,12 @@ type LoginReqInterface struct {
 // SignUpReqInterface sign up request details
 type SignUpReqInterface struct {
 	Email     string           `json:"email,omitempty"`
-	FirstName string           `json:"firstName,omitempty"`
+	FirstName string           `json:"first_name,omitempty"`
 	Roles     []authmodel.Role `json:"roles,omitempty"`
-}
-
-// AuthenticateReqInterface holds the login details
-type AuthenticateReqInterface struct {
-	Token string `json:"token"`
 }
 
 // AuthenticateResInterface holds the token pair
 type AuthenticateResInterface struct {
-	AccessToken  string `json:"accessToken"`
-	RefreshToken string `json:"refreshToken"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
 }
