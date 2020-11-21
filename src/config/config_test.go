@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gufranmirza/redact-api-golang/src/models"
+	"github.com/gufranmirza/imdb-api/models"
 )
 
 var configFilePath = fmt.Sprintf(".%s", models.DefaultConfigPath)
