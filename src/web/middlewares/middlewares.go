@@ -46,7 +46,7 @@ func Tracing(logger *log.Logger) func(http.Handler) http.Handler {
 				requestID = fmt.Sprintf("%d", time.Now().UnixNano())
 			}
 			ctx := context.WithValue(r.Context(), models.HdrRequestID, requestID)
-			w.Header().Set(models.HdrRequestID, requestID)
+			r.Header.Set(models.HdrRequestID, requestID)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}

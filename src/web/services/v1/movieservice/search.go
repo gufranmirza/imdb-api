@@ -5,22 +5,23 @@ import (
 	"net/http"
 	"strconv"
 
+	_ "github.com/gufranmirza/imdb-api/database/dbmodels" // swagger docs
 	"github.com/gufranmirza/imdb-api/models"
 	"github.com/gufranmirza/imdb-api/web/renderers"
 )
 
 // @Summary Search Movies
 // @Description It allows to search Movies
-// @Tags Repository
+// @Tags movies
 // @Accept json
 // @Produce json
 // @Param q query string true "search query"
-// @Param limit query string true "response limit default is 10"
+// @Param limit query string false "response limit default is 10"
 // @Success 200 {object} []dbmodels.Movie{}
 // @Failure 400 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
 // @Failure 500 {object} errorinterface.ErrorResponse{}
-// @Router /repository/search [GET]
+// @Router /movies/search [GET]
 func (m *movieservice) Search(w http.ResponseWriter, r *http.Request) {
 	txID := r.Header.Get(models.HdrRequestID)
 	query := r.URL.Query().Get("q")

@@ -25,7 +25,7 @@ import (
 // @Failure 400 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
 // @Failure 500 {object} errorinterface.ErrorResponse{}
-// @Router /login [POST]
+// @Router /authentication/login [POST]
 func (as *authservice) Login(w http.ResponseWriter, r *http.Request) {
 	txID := r.Header.Get(models.HdrRequestID)
 

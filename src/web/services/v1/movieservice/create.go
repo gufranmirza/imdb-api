@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/go-chi/render"
 	"github.com/gufranmirza/imdb-api/database/dbmodels"
 	"github.com/gufranmirza/imdb-api/models"
 	"github.com/gufranmirza/imdb-api/models/authmodel"
@@ -13,15 +12,16 @@ import (
 
 // @Summary Create Movie
 // @Description It allows to Create a new movie details
-// @Tags movie
+// @Tags movies
+// @Param Authorization header string true "BEARER JWT"
 // @Accept json
 // @Produce json
-// @Param * body &dbmodels.Movie{} true "create movie"
+// @Param * body dbmodels.Movie{} true "create movie"
 // @Success 200
 // @Failure 400 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
 // @Failure 500 {object} errorinterface.ErrorResponse{}
-// @Router /movie [POST]
+// @Router /movies [POST]
 func (m *movieservice) Create(w http.ResponseWriter, r *http.Request) {
 	txID := r.Header.Get(models.HdrRequestID)
 
@@ -44,6 +44,6 @@ func (m *movieservice) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	render.Respond(w, r, http.NoBody)
+	w.WriteHeader(http.StatusOK)
 	return
 }

@@ -39,3 +39,6 @@ test:
 	@$(foreach package,$(packages), \
     		set -e; \
     		go test  $(package);)
+api-docs:
+	export PATH=$(go env GOPATH)/bin:$PATH
+	swag init --output=./web/docs

@@ -1,0 +1,537 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Documentation",
+        "title": "API Documentation",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2.0"
+    },
+    "host": "localhost:8001",
+    "basePath": "/imdb-api/v1",
+    "paths": {
+        "/authentication/login": {
+            "post": {
+                "description": "It allows to login to account with email address registered",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Login to account with email",
+                "parameters": [
+                    {
+                        "description": "login with email",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/authinterface.LoginReqInterface"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authinterface.AuthenticateResInterface"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/logout": {
+            "post": {
+                "description": "It allows to logout users from account with JWT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Logout",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BEARER JWT",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/signup": {
+            "post": {
+                "description": "It allows to sign up with email address and personal details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Sign up with email",
+                "parameters": [
+                    {
+                        "description": "signup with email",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/authinterface.SignUpReqInterface"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authinterface.AuthenticateResInterface"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/validate": {
+            "post": {
+                "description": "It allows to logout users from account with JWT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Logout",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BEARER JWT",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "description": "It returns the health of the service",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Get health of the service",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthinterface.Health"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies": {
+            "post": {
+                "description": "It allows to Create a new movie details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Create Movie",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BEARER JWT",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "create movie",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dbmodels.Movie"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/search": {
+            "get": {
+                "description": "It allows to search Movies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Search Movies",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "search query",
+                        "name": "q",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "response limit default is 10",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbmodels.Movie"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorinterface.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "authinterface.AuthenticateResInterface": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "authinterface.LoginReqInterface": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "authinterface.SignUpReqInterface": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "dbmodels.Movie": {
+            "type": "object",
+            "properties": {
+                "99popularity": {
+                    "type": "number"
+                },
+                "createdTimestampUTC": {
+                    "type": "string"
+                },
+                "director": {
+                    "type": "string"
+                },
+                "genre": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imdb_score": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedTimestampUTC": {
+                    "type": "string"
+                }
+            }
+        },
+        "errorinterface.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "application-specific error code",
+                    "type": "integer"
+                },
+                "error": {
+                    "description": "application-level error message, for debugging",
+                    "type": "string"
+                },
+                "satus": {
+                    "description": "user-level status message",
+                    "type": "string"
+                }
+            }
+        },
+        "healthinterface.Health": {
+            "type": "object",
+            "properties": {
+                "inboundInterfaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/healthinterface.InboundInterface"
+                    }
+                },
+                "outboundInterfaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/healthinterface.OutboundInterface"
+                    }
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "serviceProvider": {
+                    "type": "string"
+                },
+                "serviceStartTimeUTC": {
+                    "type": "string"
+                },
+                "serviceStatus": {
+                    "type": "string"
+                },
+                "serviceVersion": {
+                    "type": "string"
+                },
+                "timeStampUTC": {
+                    "type": "string"
+                },
+                "uptime": {
+                    "type": "number"
+                }
+            }
+        },
+        "healthinterface.InboundInterface": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "applicationName": {
+                    "type": "string"
+                },
+                "connectionStatus": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "os": {
+                    "type": "string"
+                },
+                "timeStampUTC": {
+                    "type": "string"
+                }
+            }
+        },
+        "healthinterface.OutboundInterface": {
+            "type": "object",
+            "properties": {
+                "applicationName": {
+                    "type": "string"
+                },
+                "connectionStatus": {
+                    "type": "string"
+                },
+                "timeStampUTC": {
+                    "type": "string"
+                },
+                "urls": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        },
+        "BasicAuth": {
+            "type": "basic"
+        }
+    }
+}

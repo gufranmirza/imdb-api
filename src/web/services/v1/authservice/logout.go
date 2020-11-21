@@ -10,7 +10,6 @@ import (
 	"github.com/gufranmirza/imdb-api/web/renderers"
 
 	"github.com/go-chi/jwtauth"
-	"github.com/go-chi/render"
 )
 
 // @Summary Logout
@@ -22,7 +21,7 @@ import (
 // @Success 200
 // @Failure 401 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
-// @Router /logout [POST]
+// @Router /authentication/logout [POST]
 func (as *authservice) Logout(w http.ResponseWriter, r *http.Request) {
 	txID := r.Header.Get(models.HdrRequestID)
 
@@ -47,10 +46,10 @@ func (as *authservice) Logout(w http.ResponseWriter, r *http.Request) {
 	err = as.tokenDal.DeleteByAccessToken(token.Raw)
 	if err != nil {
 		as.logger.Printf("%s %s Failed to delete access token with error %v", txID, authmodel.FailedToDeleteToken, err)
-		render.Respond(w, r, http.NoBody)
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
-	render.Respond(w, r, http.NoBody)
+	w.WriteHeader(http.StatusOK)
 	return
 }

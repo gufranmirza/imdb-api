@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/jwtauth"
-	"github.com/go-chi/render"
 	"github.com/gufranmirza/imdb-api/models/authmodel"
 	"github.com/gufranmirza/imdb-api/web/renderers"
 )
@@ -18,7 +17,7 @@ import (
 // @Success 200
 // @Failure 401 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
-// @Router /validate [POST]
+// @Router /authentication/validate [POST]
 func (as *authservice) Validate(w http.ResponseWriter, r *http.Request) {
 	_, _, err := jwtauth.FromContext(r.Context())
 	if err != nil {
@@ -26,5 +25,5 @@ func (as *authservice) Validate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	render.Respond(w, r, http.NoBody)
+	w.WriteHeader(http.StatusOK)
 }

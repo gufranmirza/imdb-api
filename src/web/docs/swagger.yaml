@@ -1,0 +1,354 @@
+basePath: /imdb-api/v1
+definitions:
+  authinterface.AuthenticateResInterface:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  authinterface.LoginReqInterface:
+    properties:
+      email:
+        type: string
+    type: object
+  authinterface.SignUpReqInterface:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+    type: object
+  dbmodels.Movie:
+    properties:
+      99popularity:
+        type: number
+      createdTimestampUTC:
+        type: string
+      director:
+        type: string
+      genre:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      imdb_score:
+        type: number
+      name:
+        type: string
+      updatedTimestampUTC:
+        type: string
+    type: object
+  errorinterface.ErrorResponse:
+    properties:
+      code:
+        description: application-specific error code
+        type: integer
+      error:
+        description: application-level error message, for debugging
+        type: string
+      satus:
+        description: user-level status message
+        type: string
+    type: object
+  healthinterface.Health:
+    properties:
+      inboundInterfaces:
+        items:
+          $ref: '#/definitions/healthinterface.InboundInterface'
+        type: array
+      outboundInterfaces:
+        items:
+          $ref: '#/definitions/healthinterface.OutboundInterface'
+        type: array
+      serviceName:
+        type: string
+      serviceProvider:
+        type: string
+      serviceStartTimeUTC:
+        type: string
+      serviceStatus:
+        type: string
+      serviceVersion:
+        type: string
+      timeStampUTC:
+        type: string
+      uptime:
+        type: number
+    type: object
+  healthinterface.InboundInterface:
+    properties:
+      address:
+        type: string
+      applicationName:
+        type: string
+      connectionStatus:
+        type: string
+      hostname:
+        type: string
+      os:
+        type: string
+      timeStampUTC:
+        type: string
+    type: object
+  healthinterface.OutboundInterface:
+    properties:
+      applicationName:
+        type: string
+      connectionStatus:
+        type: string
+      timeStampUTC:
+        type: string
+      urls:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8001
+info:
+  contact: {}
+  description: API Documentation
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: API Documentation
+  version: "2.0"
+paths:
+  /authentication/login:
+    post:
+      consumes:
+      - application/json
+      description: It allows to login to account with email address registered
+      parameters:
+      - description: login with email
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/authinterface.LoginReqInterface'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authinterface.AuthenticateResInterface'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Login to account with email
+      tags:
+      - authentication
+  /authentication/logout:
+    post:
+      consumes:
+      - application/json
+      description: It allows to logout users from account with JWT
+      parameters:
+      - description: BEARER JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Logout
+      tags:
+      - authentication
+  /authentication/signup:
+    post:
+      consumes:
+      - application/json
+      description: It allows to sign up with email address and personal details
+      parameters:
+      - description: signup with email
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/authinterface.SignUpReqInterface'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authinterface.AuthenticateResInterface'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Sign up with email
+      tags:
+      - authentication
+  /authentication/validate:
+    post:
+      consumes:
+      - application/json
+      description: It allows to logout users from account with JWT
+      parameters:
+      - description: BEARER JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Logout
+      tags:
+      - authentication
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: It returns the health of the service
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthinterface.Health'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Get health of the service
+      tags:
+      - health
+  /movies:
+    post:
+      consumes:
+      - application/json
+      description: It allows to Create a new movie details
+      parameters:
+      - description: BEARER JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: create movie
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/dbmodels.Movie'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Create Movie
+      tags:
+      - movies
+  /movies/search:
+    get:
+      consumes:
+      - application/json
+      description: It allows to search Movies
+      parameters:
+      - description: search query
+        in: query
+        name: q
+        required: true
+        type: string
+      - description: response limit default is 10
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbmodels.Movie'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errorinterface.ErrorResponse'
+      summary: Search Movies
+      tags:
+      - movies
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+swagger: "2.0"

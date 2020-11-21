@@ -38,7 +38,7 @@ func NewHealth() Health {
 // @Failure 400 {object} errorinterface.ErrorResponse{}
 // @Failure 404 {object} errorinterface.ErrorResponse{}
 // @Failure 500 {object} errorinterface.ErrorResponse{}
-// @Router /health [get]
+// @Router /health [GET]
 // GetHealth returns heath of service, can be extended if
 // service is running on multile instances
 // GetHealth returns heath of service
