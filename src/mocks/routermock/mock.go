@@ -5,8 +5,8 @@
 package routermock
 
 import (
+	chi "github.com/go-chi/chi"
 	gomock "github.com/golang/mock/gomock"
-	http "net/http"
 	reflect "reflect"
 )
 
@@ -34,10 +34,10 @@ func (m *MockRouter) EXPECT() *MockRouterMockRecorder {
 }
 
 // Router mocks base method
-func (m *MockRouter) Router() *http.ServeMux {
+func (m *MockRouter) Router() chi.Router {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Router")
-	ret0, _ := ret[0].(*http.ServeMux)
+	ret0, _ := ret[0].(chi.Router)
 	return ret0
 }
 

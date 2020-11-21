@@ -24,9 +24,15 @@ start:
 
 .PHONY: mock
 mock:	
-	mockgen -package servermock github.com/gufranmirza/imdb-api/web/server Server > web/server/servermock/mock.go
-	mockgen -package routermock github.com/gufranmirza/imdb-api/web/router Router > web/router/routermock/mock.go
-	mockgen -package healthmock github.com/gufranmirza/imdb-api/web/services/health Health > web/services/health/healthmock/mock.go
+	mockgen -package jwtmock github.com/gufranmirza/imdb-api/auth/jwt TokenAuth > mocks/jwtmock/mock.go
+	mockgen -package servermock github.com/gufranmirza/imdb-api/web/server Server > mocks/servermock/mock.go
+	mockgen -package routermock github.com/gufranmirza/imdb-api/web/router Router > mocks/routermock/mock.go
+	mockgen -package healthmock github.com/gufranmirza/imdb-api/web/services/health Health > mocks/healthmock/mock.go
+	mockgen -package movieservicemock github.com/gufranmirza/imdb-api/web/services/v1/movieservice MovieService > mocks/movieservicemock/mock.go
+	mockgen -package authservicemock github.com/gufranmirza/imdb-api/web/services/v1/authservice AuthService > mocks/authservicemock/mock.go
+	mockgen -package moviedalmock github.com/gufranmirza/imdb-api/dal/moviedal MovieDal > mocks/moviedalmock/mock.go
+	mockgen -package userdalmock github.com/gufranmirza/imdb-api/dal/userdal UserDal > mocks/userdalmock/mock.go
+	mockgen -package tokendalmock github.com/gufranmirza/imdb-api/dal/tokendal TokenDal > mocks/tokendalmock/mock.go
 
 packages = \
 	./config\

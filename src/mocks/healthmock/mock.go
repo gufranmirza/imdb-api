@@ -34,15 +34,13 @@ func (m *MockHealth) EXPECT() *MockHealthMockRecorder {
 }
 
 // GetHealth mocks base method
-func (m *MockHealth) GetHealth() http.Handler {
+func (m *MockHealth) GetHealth(arg0 http.ResponseWriter, arg1 *http.Request) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetHealth")
-	ret0, _ := ret[0].(http.Handler)
-	return ret0
+	m.ctrl.Call(m, "GetHealth", arg0, arg1)
 }
 
 // GetHealth indicates an expected call of GetHealth
-func (mr *MockHealthMockRecorder) GetHealth() *gomock.Call {
+func (mr *MockHealthMockRecorder) GetHealth(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHealth", reflect.TypeOf((*MockHealth)(nil).GetHealth))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHealth", reflect.TypeOf((*MockHealth)(nil).GetHealth), arg0, arg1)
 }
