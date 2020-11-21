@@ -1,0 +1,17 @@
+{
+    "service_name": "IMDB API",
+    "service_provider": "IMDB Inc",
+    "service_version": "v1.0.0",
+    "url_prefix": "",
+
+    "hostname": "0.0.0.0",
+    "port": 8001,
+
+    "database": {
+        "host": "mongodb://localhost:27017",
+        "database": "imdb-api",
+        "query_timeout_in_sec": 40,
+        "user_collection": "users",
+        "jwt_collection": "access_tokens"
+    }
+}
