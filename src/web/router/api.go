@@ -1,10 +1,10 @@
 package router
 
 import (
-	"net/http"
+	"github.com/go-chi/chi"
 )
 
 // Router interface
 type Router interface {
-	Router() *http.ServeMux
+	Router() chi.Router
 }

@@ -1,8 +1,6 @@
 package health
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,13 +8,16 @@ import (
 	"time"
 
 	"github.com/gufranmirza/imdb-api/config"
+	"github.com/gufranmirza/imdb-api/database/connection"
 	"github.com/gufranmirza/imdb-api/models"
-	"github.com/gufranmirza/imdb-api/web/interfaces/healthinterface"
+	"github.com/gufranmirza/imdb-api/web/interfaces/v1/healthinterface"
+	"github.com/gufranmirza/imdb-api/web/renderers"
 )
 
 type health struct {
 	logger *log.Logger
 	config *models.AppConfig
+	db     connection.MongoStore
 }
 
 // NewHealth returns new health object
@@ -24,55 +25,62 @@ func NewHealth() Health {
 	return &health{
 		logger: log.New(os.Stdout, "health :=> ", log.LstdFlags),
 		config: config.Config,
+		db:     connection.NewMongoStore(),
 	}
 }
 
+// @Summary Get health of the service
+// @Description It returns the health of the service
+// @Tags health
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} healthinterface.Health{}
+// @Failure 400 {object} errorinterface.ErrorResponse{}
+// @Failure 404 {object} errorinterface.ErrorResponse{}
+// @Failure 500 {object} errorinterface.ErrorResponse{}
+// @Router /health [get]
+// GetHealth returns heath of service, can be extended if
+// service is running on multile instances
 // GetHealth returns heath of service
-func (h *health) GetHealth() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		txID, _ := r.Context().Value(models.HdrRequestID).(string)
+func (h *health) GetHealth(w http.ResponseWriter, r *http.Request) {
 
-		healthStatus := healthinterface.Health{}
-		healthStatus.ServiceName = h.config.ServiceName
-		healthStatus.ServiceProvider = h.config.ServiceProvider
-		healthStatus.ServiceVersion = h.config.ServiceVersion
-		healthStatus.TimeStampUTC = time.Now().UTC()
-		healthStatus.ServiceStatus = healthinterface.ServiceRunning
+	txID, _ := r.Context().Value(models.HdrRequestID).(string)
 
-		inbound := []healthinterface.InboundInterface{}
-		outbound := []healthinterface.OutboundInterface{}
+	healthStatus := healthinterface.Health{}
+	healthStatus.ServiceName = h.config.ServiceName
+	healthStatus.ServiceProvider = h.config.ServiceProvider
+	healthStatus.ServiceVersion = h.config.ServiceVersion
+	healthStatus.TimeStampUTC = time.Now().UTC()
+	healthStatus.ServiceStatus = healthinterface.ServiceRunning
 
-		// add internal server details
-		name, _ := os.Hostname()
+	inbound := []healthinterface.InboundInterface{}
+	outbound := []healthinterface.OutboundInterface{}
 
-		server := healthinterface.InboundInterface{}
-		server.Hostname = name
-		server.OS = runtime.GOOS
-		server.TimeStampUTC = time.Now().UTC()
-		server.ApplicationName = h.config.ServiceName
-		server.ConnectionStatus = healthinterface.ConnectionActive
+	// add mongo connection status
+	mongo := h.db.Health()
+	outbound = append(outbound, *mongo)
 
-		exIP, err := externalIP()
-		if err != nil {
-			h.logger.Printf("%s:%s Failed to obtain inbound ip address with error %v\n", models.HdrRequestID, txID, err)
-			server.ConnectionStatus = healthinterface.ConnectionDisconnected
-		}
-		server.Address = exIP
-		inbound = append(inbound, server)
+	// add internal server details
+	name, _ := os.Hostname()
 
-		healthStatus.InboundInterfaces = inbound
-		healthStatus.OutboundInterfaces = outbound
-		buff, err := json.Marshal(healthStatus)
-		if err != nil {
-			h.logger.Printf("%s:%s Failed unmarshal health object error %v\n", models.HdrRequestID, txID, err)
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
+	server := healthinterface.InboundInterface{}
+	server.Hostname = name
+	server.OS = runtime.GOOS
+	server.TimeStampUTC = time.Now().UTC()
+	server.ApplicationName = h.config.ServiceName
+	server.ConnectionStatus = healthinterface.ConnectionActive
 
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.Header().Set("X-Content-Type-Options", "nosniff")
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprintln(w, string(buff))
-		return
-	})
+	exIP, err := externalIP()
+	if err != nil {
+		h.logger.Printf("%s:%s Failed to obtain inbound ip address with error %v\n", models.HdrRequestID, txID, err)
+		server.ConnectionStatus = healthinterface.ConnectionDisconnected
+	}
+	server.Address = exIP
+	inbound = append(inbound, server)
+
+	healthStatus.InboundInterfaces = inbound
+	healthStatus.OutboundInterfaces = outbound
+	renderers.RenderJSON(w, r, txID, healthStatus)
+	return
+
 }

@@ -15,15 +15,16 @@ type AppConfig struct {
 	ServiceProvider string `json:"service_provider"`
 	ServiceVersion  string `json:"service_version"`
 	URLPrefix       string `json:"url_prefix"`
+	APIVersionV1    string `json:"api_version_v1"`
 	JWT             *JWT   `json:"jwt"`
 	Database        *DB    `json:"database"`
 }
 
 // JWT holds the config related to jwt authentication
 type JWT struct {
-	Secret           string        `json:"secret"`
-	JwtExpiry        time.Duration `json:"jwt_expiry"`
-	JwtRefreshExpiry time.Duration `json:"jwt_refresh_expiry"`
+	Secret           string `json:"secret"`
+	JwtExpiry        int64  `json:"jwt_expiry_in_sec"`
+	JwtRefreshExpiry int64  `json:"jwt_refresh_expiry_in_sec"`
 }
 
 // DB holds the config related to database

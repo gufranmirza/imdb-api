@@ -20,8 +20,8 @@ func NewTokenAuth() TokenAuth {
 	secret := config.Config.JWT.Secret
 	a := &tokenAuth{
 		JwtAuth:          jwtauth.New("HS256", []byte(secret), nil),
-		JwtExpiry:        config.Config.JWT.JwtExpiry,
-		JwtRefreshExpiry: config.Config.JWT.JwtExpiry,
+		JwtExpiry:        time.Duration(config.Config.JWT.JwtExpiry) * time.Second,
+		JwtRefreshExpiry: time.Duration(config.Config.JWT.JwtRefreshExpiry) * time.Second,
 	}
 
 	return a

@@ -7,7 +7,17 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/jwtauth"
 	"github.com/gufranmirza/imdb-api/models"
+	"github.com/gufranmirza/imdb-api/models/authmodel"
+	"github.com/gufranmirza/imdb-api/web/renderers"
+)
+
+type ctxKey int
+
+const (
+	ctxClaims ctxKey = iota
+	ctxRefreshToken
 )
 
 // Logging middleware logs the incoming requests
@@ -31,13 +41,43 @@ func Logging(logger *log.Logger) func(http.Handler) http.Handler {
 func Tracing(logger *log.Logger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			requestID := r.Header.Get("X-Request-Id")
+			requestID := r.Header.Get(models.HdrRequestID)
 			if requestID == "" {
 				requestID = fmt.Sprintf("%d", time.Now().UnixNano())
 			}
 			ctx := context.WithValue(r.Context(), models.HdrRequestID, requestID)
-			w.Header().Set("X-Request-Id", requestID)
+			w.Header().Set(models.HdrRequestID, requestID)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
+}
+
+// Authenticator is a default authentication middleware to enforce access from the
+// Verifier middleware request context values. The Authenticator sends a 401 Unauthorized
+// response for any unverified tokens and passes the good ones through.
+func Authenticator(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		token, claims, err := jwtauth.FromContext(r.Context())
+		if err != nil {
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			return
+		}
+
+		if !token.Valid {
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			return
+		}
+
+		// Token is authenticated, parse claims
+		var c authmodel.AppClaims
+		err = c.ParseClaims(claims)
+		if err != nil {
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			return
+		}
+
+		// Set AppClaims on context
+		ctx := context.WithValue(r.Context(), ctxClaims, c)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }

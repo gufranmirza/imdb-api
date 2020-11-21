@@ -11,5 +11,5 @@ const (
 
 // Health interface
 type Health interface {
-	GetHealth() http.Handler
+	GetHealth(w http.ResponseWriter, r *http.Request)
 }
