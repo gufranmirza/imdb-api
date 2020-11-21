@@ -34,4 +34,5 @@ type DB struct {
 	QueryTimeoutInSec time.Duration `json:"query_timeout_in_sec"`
 	UserCollection    string        `json:"user_collection"`
 	JWTCollection     string        `json:"jwt_collection"`
+	MovieCollection   string        `json:"movie_collection"`
 }

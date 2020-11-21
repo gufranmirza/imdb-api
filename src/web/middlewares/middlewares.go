@@ -81,3 +81,32 @@ func Authenticator(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
+
+// RequiresRole middleware restricts access to accounts having role parameter in their jwt claims.
+func RequiresRole(role authmodel.Role) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		hfn := func(w http.ResponseWriter, r *http.Request) {
+			claims := ClaimsFromCtx(r.Context())
+			if !hasRole(role, claims.Roles) {
+				renderers.ErrorForbidden(w, r, authmodel.ErrInsufficientRights)
+				return
+			}
+			next.ServeHTTP(w, r)
+		}
+		return http.HandlerFunc(hfn)
+	}
+}
+
+func hasRole(role authmodel.Role, roles []authmodel.Role) bool {
+	for _, r := range roles {
+		if r == role {
+			return true
+		}
+	}
+	return false
+}
+
+// ClaimsFromCtx retrieves the parsed AppClaims from request context.
+func ClaimsFromCtx(ctx context.Context) authmodel.AppClaims {
+	return ctx.Value(ctxClaims).(authmodel.AppClaims)
+}

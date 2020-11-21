@@ -13,6 +13,7 @@
         "database": "imdb-api",
         "query_timeout_in_sec": 40,
         "user_collection": "users",
+        "movie_collection": "movies",
         "jwt_collection": "access_tokens"
     },
 

@@ -9,15 +9,15 @@ import (
 
 // User model represents the user collection in database
 type User struct {
-	ID                  primitive.ObjectID `json:"ID,omitempty" bson:"_id,omitempty"`
-	CreatedTimestampUTC time.Time          `json:"CreatedTimestampUTC,omitempty" bson:"CreatedTimestampUTC,omitempty"`
-	UpdatedTimestampUTC time.Time          `json:"UpdatedTimestampUTC,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
-	LastLogin           time.Time          `json:"LastLogin,omitempty" bson:"LastLogin,omitempty"`
-	Email               string             `json:"Email,omitempty" bson:"Email,omitempty"`
-	FirstName           string             `json:"FirstName,omitempty" bson:"FirstName,omitempty"`
-	LastName            string             `json:"LastName,omitempty" bson:"LastName,omitempty"`
-	Active              bool               `json:"Active,omitempty" bson:"Active,omitempty"`
-	Roles               []authmodel.Role   `json:"Roles,omitempty" bson:"Roles,omitempty"`
+	ID                  primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
+	CreatedTimestampUTC time.Time          `json:"createdTimestampUTC,omitempty" bson:"CreatedTimestampUTC,omitempty"`
+	UpdatedTimestampUTC time.Time          `json:"updatedTimestampUTC,omitempty" bson:"UpdatedTimestampUTC,omitempty"`
+	LastLogin           time.Time          `json:"lastLogin,omitempty" bson:"LastLogin,omitempty"`
+	Email               string             `json:"email,omitempty" bson:"Email,omitempty"`
+	FirstName           string             `json:"firstName,omitempty" bson:"FirstName,omitempty"`
+	LastName            string             `json:"lastName,omitempty" bson:"LastName,omitempty"`
+	Active              bool               `json:"active,omitempty" bson:"Active,omitempty"`
+	Roles               []authmodel.Role   `json:"roles,omitempty" bson:"Roles,omitempty"`
 }
 
 // CanLogin returns true if user is allowed to login.

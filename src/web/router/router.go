@@ -8,15 +8,19 @@ import (
 	"github.com/gufranmirza/imdb-api/auth/jwt"
 	"github.com/gufranmirza/imdb-api/config"
 	"github.com/gufranmirza/imdb-api/models"
+	"github.com/gufranmirza/imdb-api/models/authmodel"
 	"github.com/gufranmirza/imdb-api/web/middlewares"
 	"github.com/gufranmirza/imdb-api/web/services/health"
 	"github.com/gufranmirza/imdb-api/web/services/v1/authservice"
+	"github.com/gufranmirza/imdb-api/web/services/v1/movieservice"
 )
 
 type router struct {
-	config  *models.AppConfig
-	health  health.Health
-	auth    authservice.AuthService
+	config *models.AppConfig
+	health health.Health
+	auth   authservice.AuthService
+	movie  movieservice.MovieService
+
 	jwtauth jwt.TokenAuth
 }
 
@@ -26,6 +30,7 @@ func NewRouter() Router {
 		config:  config.Config,
 		health:  health.NewHealth(),
 		auth:    authservice.NewAuthService(),
+		movie:   movieservice.NewMovieServiceService(),
 		jwtauth: jwt.NewTokenAuth(),
 	}
 }
@@ -46,10 +51,20 @@ func (router *router) Router() chi.Router {
 	r.Get(v1Prefix+"/health/", router.health.GetHealth)
 
 	// =================  authentication routes ======================
-	r.Post(v1Prefix+"/signup", router.auth.SignUp)
-	r.Post(v1Prefix+"/login", router.auth.Login)
-	rprivate.Post(v1Prefix+"/logout", router.auth.Logout)
-	rprivate.Post(v1Prefix+"/validate", router.auth.Validate)
+	r.Post(v1Prefix+"/auth/signup", router.auth.SignUp)
+	r.Post(v1Prefix+"/auth/login", router.auth.Login)
+	rprivate.Post(v1Prefix+"/auth/logout", router.auth.Logout)
+	rprivate.Post(v1Prefix+"/auth/validate", router.auth.Validate)
+
+	// =================  movie routes ======================
+	r.Group(func(r chi.Router) {
+		r.Use(router.jwtauth.Verifier())
+		r.Use(middlewares.Authenticator)
+		r.Use(middlewares.RequiresRole(authmodel.Role("ADMIN"))) // try changing role to something else
+		r.Post(v1Prefix+"/movies", router.movie.Create)
+	})
+
+	r.Get(v1Prefix+"/movies/search", router.movie.Search)
 
 	return r
 }
