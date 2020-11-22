@@ -2,7 +2,6 @@ package movieservice
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -29,8 +28,6 @@ func Test_movieservice_Search(t *testing.T) {
 
 	req1, _ := http.NewRequest("GET", "/movies/search?q=5&limit=10", nil)
 	w1 := httptest.NewRecorder()
-
-	fmt.Println(req1.URL.String())
 
 	type fields struct {
 		moviedal moviedal.MovieDal
