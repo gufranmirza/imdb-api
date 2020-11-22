@@ -75,7 +75,7 @@ func migrate(args []string) {
 func dataloader(args []string) {
 	if len(os.Args) < 3 {
 		log.Printf("No enough arguments to dataloader args: (%s) \n", os.Args)
-		log.Println("USAGE ./imdb-api migrate dataloader ./data.json")
+		log.Println("USAGE ./imdb-api dataloader ./data.json")
 		os.Exit(1)
 	}
 
@@ -92,7 +92,6 @@ func dataloader(args []string) {
 		log.Fatalf("Failed to read file %s with error: %v \n", path, err)
 	}
 
-	// we initialize our Users array
 	var movies []dbmodels.Movie
 	moviedal := moviedal.NewMovieDal()
 	err = json.Unmarshal(buff, &movies)
