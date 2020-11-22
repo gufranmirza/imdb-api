@@ -48,3 +48,16 @@ test:
 api-docs:
 	export PATH=$(go env GOPATH)/bin:$PATH
 	swag init --output=./web/docs
+
+migrate-up:
+	../bin/${BINARY_NAME} migrate up 
+
+migrate-down:
+	../bin/${BINARY_NAME} migrate down
+
+migrate-new:
+	../bin/${BINARY_NAME} migrate new "new migration script"
+
+.PHONY: dataloader
+dataloader:
+	../bin/${BINARY_NAME} dataloader ./data/imdb.json

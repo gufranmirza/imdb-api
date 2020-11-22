@@ -175,7 +175,7 @@ var doc = `{
         },
         "/authentication/validate": {
             "post": {
-                "description": "It allows to logout users from account with JWT",
+                "description": "It allows valdidate jwt token",
                 "consumes": [
                     "application/json"
                 ],
@@ -185,7 +185,7 @@ var doc = `{
                 "tags": [
                     "authentication"
                 ],
-                "summary": "Logout",
+                "summary": "Validate",
                 "parameters": [
                     {
                         "type": "string",

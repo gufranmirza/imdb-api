@@ -8,8 +8,8 @@ import (
 	"github.com/gufranmirza/imdb-api/web/renderers"
 )
 
-// @Summary Logout
-// @Description It allows to logout users from account with JWT
+// @Summary Validate
+// @Description It allows valdidate jwt token
 // @Tags authentication
 // @Param Authorization header string true "BEARER JWT"
 // @Accept json

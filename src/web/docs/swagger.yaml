@@ -218,7 +218,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: It allows to logout users from account with JWT
+      description: It allows valdidate jwt token
       parameters:
       - description: BEARER JWT
         in: header
@@ -238,7 +238,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/errorinterface.ErrorResponse'
-      summary: Logout
+      summary: Validate
       tags:
       - authentication
   /health:
