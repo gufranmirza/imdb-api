@@ -1,0 +1,25 @@
+{
+    "service_name": "IMDB API",
+    "service_provider": "IMDB Inc",
+    "service_version": "v1.0.0",
+
+    "hostname": "0.0.0.0",
+    "port": 8001,
+    "url_prefix": "/imdb-api",
+    "api_version_v1": "/v1",
+
+    "database": {
+        "host": "mongodb://mongo:27017",
+        "database": "imdb-api",
+        "query_timeout_in_sec": 40,
+        "user_collection": "users",
+        "movie_collection": "movies",
+        "jwt_collection": "access_tokens"
+    },
+
+    "jwt": {
+        "secret": "secr3t",
+        "jwt_expiry_in_sec": 300,
+        "jwt_refresh_expiry_in_sec": 1800
+    }
+}

@@ -56,8 +56,8 @@ func (r *movie) Search(query string) ([]dbmodels.Movie, error) {
 
 	filter := bson.D{
 		{"$or", []interface{}{
-			bson.D{{"Director", primitive.Regex{Pattern: query, Options: "i"}}},
-			bson.D{{"Name", primitive.Regex{Pattern: query, Options: "i"}}},
+			bson.D{{"director", primitive.Regex{Pattern: query, Options: "i"}}},
+			bson.D{{"name", primitive.Regex{Pattern: query, Options: "i"}}},
 		}},
 	}
 
