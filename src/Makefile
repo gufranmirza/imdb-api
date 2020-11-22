@@ -39,12 +39,15 @@ packages = \
 	./web/server\
 	./web/router\
 	./web/services/health\
+	./web/services/v1/authservice\
+	./web/services/v1/movieservice\
+
 
 .PHONY: test
 test:
 	@$(foreach package,$(packages), \
     		set -e; \
-    		go test  $(package);)
+			go test -coverprofile $(package)/cover.out $(package);)
 api-docs:
 	export PATH=$(go env GOPATH)/bin:$PATH
 	swag init --output=./web/docs

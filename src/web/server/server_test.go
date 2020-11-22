@@ -3,14 +3,20 @@ package server
 import (
 	"log"
 	"os"
-	"reflect"
 	"testing"
 
 	"github.com/gufranmirza/imdb-api/config"
+	"github.com/gufranmirza/imdb-api/models"
 	"github.com/gufranmirza/imdb-api/web/router"
 )
 
 func TestNewServer(t *testing.T) {
+	config.Config = &models.AppConfig{
+		JWT: &models.JWT{
+			Secret: "1456465",
+		},
+	}
+
 	tests := []struct {
 		name string
 		want Server
@@ -26,7 +32,7 @@ func TestNewServer(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewServer(); !reflect.DeepEqual(got, tt.want) {
+			if got := NewServer(); got == nil && tt.want != nil {
 				t.Errorf("NewServer() = %v, want %v", got, tt.want)
 			}
 		})

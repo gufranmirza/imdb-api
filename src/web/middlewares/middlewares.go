@@ -59,12 +59,12 @@ func Authenticator(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token, claims, err := jwtauth.FromContext(r.Context())
 		if err != nil {
-			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInsufficientRights)
 			return
 		}
 
 		if !token.Valid {
-			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInsufficientRights)
 			return
 		}
 
@@ -72,7 +72,7 @@ func Authenticator(next http.Handler) http.Handler {
 		var c authmodel.AppClaims
 		err = c.ParseClaims(claims)
 		if err != nil {
-			renderers.ErrorUnauthorized(w, r, authmodel.ErrInvalidLogin)
+			renderers.ErrorUnauthorized(w, r, authmodel.ErrInsufficientRights)
 			return
 		}
 
