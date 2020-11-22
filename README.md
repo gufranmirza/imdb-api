@@ -39,6 +39,8 @@ make run
 ## API Documentation
 [Swagger API documetation](http://localhost:8001/imdb-api/v1/swagger/index.html)
 
+[Swagger file](https://github.com/gufranmirza/imdb-api/blob/main/src/web/docs/swagger.yaml)
+
 ## Testing
 Running test
 ```
